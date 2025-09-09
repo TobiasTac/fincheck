@@ -8,6 +8,10 @@ export class UsersService {
   getUserById(userId: string) {
     return this.usersRepo.findUnique({
       where: { id: userId },
+      select: {
+        name: true,
+        email: true,
+      }
     });
   }
 }
