@@ -22,7 +22,17 @@ export class TransactionsService {
       categoryId,
     });
 
-    return 'passou';
+    return this.transactionsRepo.create({
+      data: {
+        userId,
+        bankAccountId,
+        categoryId,
+        date,
+        name,
+        type,
+        value,
+      },
+    });
   }
 
   findAllByUserId(userId: string) {
