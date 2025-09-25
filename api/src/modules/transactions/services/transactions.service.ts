@@ -48,7 +48,7 @@ export class TransactionsService {
     transactionId: string,
     updateTransactionDto: UpdateTransactionDto
   ) {
-    const { bankAccountId, categoryId } = updateTransactionDto;
+    const { bankAccountId, categoryId, date, name, type, value } = updateTransactionDto;
 
     await this.validateEntitiesOwnership ({
       userId,
@@ -57,7 +57,17 @@ export class TransactionsService {
       transactionId,
     });
 
-    return `This action updates a #${transactionId} transaction`;
+    return this.transactionsRepo.update({
+      where: { id: transactionId },
+      data: {
+        bankAccountId,
+        categoryId,
+        date,
+        name,
+        type,
+        value
+      }
+    })
   }
 
   remove(id: number) {
@@ -67,7 +77,8 @@ export class TransactionsService {
   private async validateEntitiesOwnership({
     userId,
     bankAccountId,
-    categoryId
+    categoryId,
+    transactionId,
   }: {
     userId: string;
     bankAccountId: string;
@@ -76,6 +87,7 @@ export class TransactionsService {
   }) {
 
     await Promise.all([
+      transactionId && this.validateTransactionOwnershipService.validate(userId, transactionId),
       this.validateBankAccountOwnershipService.validate(userId,bankAccountId),
       this.validateCategoryOwnershipService.validate(userId,categoryId),
     ]);
