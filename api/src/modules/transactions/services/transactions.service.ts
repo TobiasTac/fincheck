@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { TransactionsRepository } from 'src/shared/database/repositories/transactions.repositories';
-import { ValidateBankAccountOwnershipService } from '../bank-accounts/services/validate-bank-account-ownership.service';
-import { ValidateCategoryOwnershipService } from '../categories/services/validate-category-ownership.service';
-import { CreateTransactionDto } from './dto/create-transaction.dto';
-import { UpdateTransactionDto } from './dto/update-transaction.dto';
+import { ValidateBankAccountOwnershipService } from '../../bank-accounts/services/validate-bank-account-ownership.service';
+import { ValidateCategoryOwnershipService } from '../../categories/services/validate-category-ownership.service';
+import { CreateTransactionDto } from '../dto/create-transaction.dto';
+import { UpdateTransactionDto } from '../dto/update-transaction.dto';
+import { ValidateTransactionOwnershipService } from './validate-transaction-ownership.service';
 
 @Injectable()
 export class TransactionsService {
@@ -11,6 +12,7 @@ export class TransactionsService {
     private readonly transactionsRepo: TransactionsRepository,
     private readonly validateBankAccountOwnershipService: ValidateBankAccountOwnershipService,
     private readonly validateCategoryOwnershipService: ValidateCategoryOwnershipService,
+    private readonly validateTransactionOwnershipService: ValidateTransactionOwnershipService,
   ) { }
 
   async create(userId: string, createTransactionDto: CreateTransactionDto) {
@@ -41,8 +43,21 @@ export class TransactionsService {
     });
   }
 
-  update(id: number, updateTransactionDto: UpdateTransactionDto) {
-    return `This action updates a #${id} transaction`;
+  async update(
+    userId: string,
+    transactionId: string,
+    updateTransactionDto: UpdateTransactionDto
+  ) {
+    const { bankAccountId, categoryId } = updateTransactionDto;
+
+    await this.validateEntitiesOwnership ({
+      userId,
+      bankAccountId,
+      categoryId,
+      transactionId,
+    });
+
+    return `This action updates a #${transactionId} transaction`;
   }
 
   remove(id: number) {
@@ -56,7 +71,8 @@ export class TransactionsService {
   }: {
     userId: string;
     bankAccountId: string;
-    categoryId: string
+    categoryId: string;
+    transactionId?: string;
   }) {
 
     await Promise.all([
