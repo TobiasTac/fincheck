@@ -37,9 +37,16 @@ export class TransactionsService {
     });
   }
 
-  findAllByUserId(userId: string) {
+  findAllByUserId(userId: string, filters: { month: number; year: number; }) {
+    console.log({filters})
     return this.transactionsRepo.findMany({
-      where: { userId },
+      where: {
+        userId,
+         date: {
+          gte: new Date(filters.year, filters.month),
+          lt: new Date(filters.year, filters.month + 1),
+         },
+      },
     });
   }
 

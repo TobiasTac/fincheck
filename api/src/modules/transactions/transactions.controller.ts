@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseUUIDPipe, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, ParseUUIDPipe, Post, Put, Query } from '@nestjs/common';
 import { ActiveUserId } from 'src/shared/decorators/ActiveUserId';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
@@ -17,8 +17,13 @@ export class TransactionsController {
   }
 
   @Get()
-  findAll(@ActiveUserId() userId: string) {
-    return this.transactionsService.findAllByUserId(userId);
+  findAll(
+    @ActiveUserId() userId: string,
+    @Query('month', ParseIntPipe) month: number,
+    @Query('year', ParseIntPipe) year: number,
+  ) {
+    console.log({ month, year })
+    return this.transactionsService.findAllByUserId(userId, { month, year });
   }
 
   @Put(':transactionId')
