@@ -43,8 +43,8 @@ export class TransactionsService {
       where: {
         userId,
          date: {
-          gte: new Date(filters.year, filters.month),
-          lt: new Date(filters.year, filters.month + 1),
+          gte: new Date(Date.UTC(filters.year, filters.month)),
+          lt: new Date(Date.UTC(filters.year, filters.month + 1)),
          },
       },
     });
