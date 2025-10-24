@@ -59,14 +59,6 @@ export class BankAccountsService {
 
     await this.bankAccountsRepo.delete({
       where: { id: bankAccountId },
-      include: {
-        transactions: {
-          select: {
-            type: true,
-            value: true,
-          }
-        }
-      }
     });
 
     return null;
