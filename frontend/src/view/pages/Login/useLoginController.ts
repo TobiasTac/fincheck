@@ -5,7 +5,7 @@ import { z } from 'zod';
 const schema = z.object({
   email: z.string()
     .nonempty('E-mail é obrigatório')
-    .email('informe um e-mail válido'),
+    .email('Informe um e-mail válido'),
   password: z.string()
     .nonempty('Senha é obrigatória')
     .min(8, 'A senha deve conter pelo menos 8 dígitos')
@@ -25,8 +25,6 @@ export function useLoginController() {
   const handleSubmit = hookHandleSubmit((data) => {
     console.log('Chama a API pai:', data)
   });
-
-  console.log(errors)
 
   return { handleSubmit, register, errors };
 }
