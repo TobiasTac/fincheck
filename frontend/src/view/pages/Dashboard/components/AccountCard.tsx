@@ -1,3 +1,4 @@
+import { formatCurrency } from "../../../../app/utils/formatCurrency";
 import { CategoryIcon } from "../../../components/icons/categories/CategoryIcon";
 
 interface AccountCardProps {
@@ -21,7 +22,7 @@ export function AccountCard({ color, name, balance }: AccountCardProps) {
 
       <div>
         <span className="text-gray-800 font-medium traking-[-0.5px] block">
-          {balance}
+          {formatCurrency(balance)}
         </span>
         <small className="text-gray-400 text-sm">
           Saldo atual
