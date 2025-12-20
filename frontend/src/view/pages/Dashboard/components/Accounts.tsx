@@ -1,8 +1,9 @@
+import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import { EyeIcon } from "../../../components/icons/EyeIcon";
 
 export function Accounts() {
   return (
-    <div className="bg-teal-900 rounded-2xl w-full h-full md:p-10 px-4 py-8">
+    <div className="bg-teal-900 rounded-2xl w-full h-full md:p-10 px-4 py-8 flex flex-col">
       <div>
         <span className="tracking-[-0.5px] text-white block">Saldo total</span>
         <div className="flex items-center gap-2">
@@ -13,6 +14,26 @@ export function Accounts() {
           <button className="w-8 h-8 flex items-center justify-center">
             <EyeIcon open />
           </button>
+        </div>
+      </div>
+
+      <div className="flex-1 flex flex-col justify-end ">
+        <div className="flex items-center justify-between">
+          <strong className="text-white tracking-[-1px] text-lg font-bold">
+            Minhas contas
+          </strong>
+
+          <div>
+            <button>
+              <ChevronLeftIcon />
+            </button>
+            <button>
+              <ChevronRightIcon />
+            </button>
+          </div>
+        </div>
+        <div>
+          Contas...
         </div>
       </div>
     </div>
