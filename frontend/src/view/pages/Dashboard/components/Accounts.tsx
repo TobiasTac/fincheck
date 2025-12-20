@@ -1,5 +1,6 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import { EyeIcon } from "../../../components/icons/EyeIcon";
+import { AccountCard } from "./AccountCard";
 
 export function Accounts() {
   return (
@@ -37,8 +38,12 @@ export function Accounts() {
             </button>
           </div>
         </div>
-        <div>
-          Contas...
+        <div className="mt-4">
+          <AccountCard
+            color="#7950F2"
+            name="Nubank"
+            balance={1800.23}
+          />
         </div>
       </div>
     </div>
