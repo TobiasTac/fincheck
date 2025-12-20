@@ -24,11 +24,16 @@ export function Accounts() {
           </strong>
 
           <div>
-            <button>
-              <ChevronLeftIcon />
+            <button
+              className="py-3 pl-2.5 pr-3.5 rounded-full enabled:hover:bg-black/10 transition-colors disabled:opacity-40"
+              disabled
+            >
+              <ChevronLeftIcon className="text-white w-6 h-6" />
             </button>
-            <button>
-              <ChevronRightIcon />
+            <button
+              className="py-3 pl-2.5 pr-3.5 rounded-full hover:bg-black/10 transition-colors disabled:opacity-40"
+            >
+              <ChevronRightIcon className="text-white w-6 h-6" />
             </button>
           </div>
         </div>
