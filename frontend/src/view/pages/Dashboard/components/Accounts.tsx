@@ -1,4 +1,4 @@
-import "swiper/css";
+import "swiper/swiper-bundle.css";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EyeIcon } from "../../../components/icons/EyeIcon";
