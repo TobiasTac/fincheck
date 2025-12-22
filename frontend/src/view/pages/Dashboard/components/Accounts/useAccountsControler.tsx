@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useWindowWidth } from "../../../../../app/hooks/useWindowWidth";
 
 export function useAccountsControler() {
-	const [sliderState, setSliderState] = useState({
+	const windowWidth = useWindowWidth();
+  const [sliderState, setSliderState] = useState({
 		isBeginning: true,
 		isEnd: false,
 	});
@@ -9,5 +11,6 @@ export function useAccountsControler() {
   return {
     sliderState,
 		setSliderState,
+    windowWidth,
   }
 }
