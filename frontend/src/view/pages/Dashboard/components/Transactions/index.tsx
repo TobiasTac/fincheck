@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { MONTHS } from "../../../../../app/config/constants";
 import { FilterIcon } from "../../../../components/icons/FilterIcon";
 import { TransactionsIcon } from "../../../../components/icons/TransactionsIcon";
+import { SliderNavigation } from "./SliderNavigation";
 import { SliderOption } from "./SliderOption";
 
 export function Transactions() {
@@ -25,11 +26,13 @@ export function Transactions() {
           </button>
         </div>
 
-        <div className="mt-6">
+        <div className="mt-6 relative">
           <Swiper
             slidesPerView={3}
             centeredSlides
           >
+            <SliderNavigation />
+
             {MONTHS.map((month, index)=> (
               <SwiperSlide key={month}>
                 {({ isActive }) => (
