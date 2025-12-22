@@ -3,9 +3,9 @@ import "swiper/swiper-bundle.css";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { MONTHS } from "../../../../../app/config/constants";
-import { cn } from "../../../../../app/utils/cn";
 import { FilterIcon } from "../../../../components/icons/FilterIcon";
 import { TransactionsIcon } from "../../../../components/icons/TransactionsIcon";
+import { SliderOption } from "./SliderOption";
 
 export function Transactions() {
   return (
@@ -30,17 +30,14 @@ export function Transactions() {
             slidesPerView={3}
             centeredSlides
           >
-            {MONTHS.map(month => (
+            {MONTHS.map((month, index)=> (
               <SwiperSlide key={month}>
                 {({ isActive }) => (
-                  <button
-                    className={cn(
-                      'w-full rounded-full h-12 text-sm text-gray-800 tracking-[-0.5px] font-medium',
-                      isActive && 'bg-white'
-                    )}
-                  >
-                    {month}
-                  </button>
+                  <SliderOption
+                    isActive={isActive}
+                    month={month}
+                    index={index}
+                  />
                 )}
               </SwiperSlide>
             ))}
