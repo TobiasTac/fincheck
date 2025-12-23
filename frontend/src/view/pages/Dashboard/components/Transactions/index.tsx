@@ -50,7 +50,7 @@ export function Transactions() {
         </div>
       </header>
 
-      <div className="mt-4 space-y-2">
+      <div className="mt-4 space-y-2 flex-1 overflow-y-auto">
         <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
           <div className="flex-1 flex items-center gap-3">
             <CategoryIcon type="expense"/>
