@@ -1,24 +1,35 @@
 import "swiper/swiper-bundle.css";
 
 import { Swiper, SwiperSlide } from "swiper/react";
+import { formatCurrency } from "../../../../../app/utils/formatCurrency";
 import { EyeIcon } from "../../../../components/icons/EyeIcon";
 import { AccountCard } from "./AccountCard";
 import { SliderNavigation } from "./SliderNavigation";
 import { useAccountsControler } from "./useAccountsControler";
 
 export function Accounts() {
-  const { sliderState, setSliderState, windowWidth } = useAccountsControler();
+  const {
+    sliderState,
+    setSliderState,
+    windowWidth,
+    areValuesVisible,
+    toogleValuesVisibility,
+  } = useAccountsControler();
+
   return (
     <div className="bg-teal-900 rounded-2xl w-full h-full md:p-10 px-4 py-8 flex flex-col">
       <div>
         <span className="tracking-[-0.5px] text-white block">Saldo total</span>
         <div className="flex items-center gap-2">
           <strong className="text-2xl tracking-[-1px] text-white">
-            R$ 100,00
+            {formatCurrency(10000)}
           </strong>
 
-          <button className="w-8 h-8 flex items-center justify-center">
-            <EyeIcon open />
+          <button
+            className="w-8 h-8 flex items-center justify-center"
+            onClick={toogleValuesVisibility}
+          >
+            <EyeIcon open={!areValuesVisible} />
           </button>
         </div>
       </div>
