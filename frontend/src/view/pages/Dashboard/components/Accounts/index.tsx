@@ -1,6 +1,7 @@
 import "swiper/swiper-bundle.css";
 
 import { Swiper, SwiperSlide } from "swiper/react";
+import { cn } from "../../../../../app/utils/cn";
 import { formatCurrency } from "../../../../../app/utils/formatCurrency";
 import { EyeIcon } from "../../../../components/icons/EyeIcon";
 import { AccountCard } from "./AccountCard";
@@ -21,7 +22,12 @@ export function Accounts() {
       <div>
         <span className="tracking-[-0.5px] text-white block">Saldo total</span>
         <div className="flex items-center gap-2">
-          <strong className="text-2xl tracking-[-1px] text-white">
+          <strong
+            className={cn(
+              'text-2xl tracking-[-1px] text-white',
+              !areValuesVisible && 'blur-md',
+            )}
+          >
             {formatCurrency(10000)}
           </strong>
 
