@@ -1,5 +1,7 @@
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { DropdownMenu } from "../../../../components/DropdownMenu";
+import { ExpensesIcon } from "../../../../components/icons/ExpensesIcon";
+import { IncomeIcon } from "../../../../components/icons/IncomeIcon";
 import { TransactionsIcon } from "../../../../components/icons/TransactionsIcon";
 
 export function TransactionTypeDropdown() {
@@ -15,15 +17,18 @@ export function TransactionTypeDropdown() {
         </button>
       </DropdownMenu.Trigger>
 
-      <DropdownMenu.Content>
-        <DropdownMenu.Item>
-           Receitas
+      <DropdownMenu.Content className="w-[279px]">
+        <DropdownMenu.Item className="gap-2">
+          <IncomeIcon />
+          Receitas
         </DropdownMenu.Item>
-        <DropdownMenu.Item>
-           Despesas
+        <DropdownMenu.Item className="gap-2">
+          <ExpensesIcon />
+          Despesas
         </DropdownMenu.Item>
-        <DropdownMenu.Item>
-           Transações
+        <DropdownMenu.Item className="gap-2">
+          <TransactionsIcon />
+          Transações
         </DropdownMenu.Item>
       </DropdownMenu.Content>
     </DropdownMenu.Root>
