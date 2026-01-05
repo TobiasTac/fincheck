@@ -1,5 +1,7 @@
 import { PlusIcon } from "@radix-ui/react-icons";
 import { DropdownMenu } from "../../../../components/DropdownMenu";
+import { BankAccountIcon } from "../../../../components/icons/BankAccountIcon";
+import { CategoryIcon } from "../../../../components/icons/categories/CategoryIcon";
 
 export function Fab() {
   return (
@@ -14,15 +16,18 @@ export function Fab() {
         </DropdownMenu.Trigger>
 
         <DropdownMenu.Content>
-          <DropdownMenu.Item>
+          <DropdownMenu.Item className="gap-2">
+            <CategoryIcon type="expense" />
             Nova Despesa
           </DropdownMenu.Item>
 
-          <DropdownMenu.Item>
+          <DropdownMenu.Item className="gap-2">
+            <CategoryIcon type="income" />
             Nova Receita
           </DropdownMenu.Item>
 
-          <DropdownMenu.Item>
+          <DropdownMenu.Item className="gap-2">
+            <BankAccountIcon />
             Nova Conta
           </DropdownMenu.Item>
         </DropdownMenu.Content>
