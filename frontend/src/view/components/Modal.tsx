@@ -1,15 +1,14 @@
 import * as Dialog from '@radix-ui/react-dialog';
 
-import { cn } from '../../../app/utils/cn';
-import { ModalContent } from './ModalContent';
-import { ModalHeader } from './ModalHeader';
+import { cn } from '../../app/utils/cn';
 
 interface ModalProps {
   open: boolean;
   children: React.ReactNode;
+  title: String;
 }
 
-export function Modal({ open, children }: ModalProps) {
+export function Modal({ open, children, title }: ModalProps) {
   return (
     <Dialog.Root open={open}>
       <Dialog.Portal>
@@ -26,12 +25,15 @@ export function Modal({ open, children }: ModalProps) {
             'data[state=open]:animate-content-show'
           )}
         >
-          {children}
+          <header className="h-12 flex items-center">
+            {title}
+          </header>
+
+          <div>
+            {children}
+          </div>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
   )
 }
-
-Modal.Header = ModalHeader;
-Modal.Content = ModalContent;
