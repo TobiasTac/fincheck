@@ -8,6 +8,7 @@ import emptyStateImage from '../../../../../assets/empty-state.svg';
 import { CategoryIcon } from "../../../../components/icons/categories/CategoryIcon";
 import { FilterIcon } from "../../../../components/icons/FilterIcon";
 import { Spinner } from "../../../../components/Spinner";
+import { FiltersModal } from "./FiltersModal";
 import { SliderNavigation } from "./SliderNavigation";
 import { SliderOption } from "./SliderOption";
 import { TransactionTypeDropdown } from "./TransactionTypeDropdown";
@@ -20,6 +21,8 @@ export function Transactions() {
 
   return (
     <div className="bg-gray-100 rounded-2xl w-full h-full p-10 flex flex-col">
+      <FiltersModal />
+
       {isInitialLoading && (
         <div className="w-full h-full flex items-center justify-center">
           <Spinner className="w-10 h-10"/>
