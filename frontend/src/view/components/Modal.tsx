@@ -25,13 +25,19 @@ export function Modal({ open, children, title }: ModalProps) {
             'data[state=open]:animate-content-show'
           )}
         >
-          <header className="h-12 flex items-center">
-            {title}
+          <header
+            className="h-12 flex items-center justify-between"
+          >
+            <button className='w-12 h-12'>X</button>
+
+            <span>{title}</span>
+
+            <div className='w-12 h-12'>R</div>
           </header>
 
-          <div>
-            {children}
-          </div>
+            <div>
+              {children}
+            </div>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
