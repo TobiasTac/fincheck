@@ -15,14 +15,20 @@ import { TransactionTypeDropdown } from "./TransactionTypeDropdown";
 import { useTransactionsController } from "./useTransactionsController";
 
 export function Transactions() {
-  const { areValuesVisible, transactions, isInitialLoading, isLoading } = useTransactionsController();
+  const {
+    areValuesVisible,
+    transactions,
+    isInitialLoading,
+    isLoading,
+    isFiltersModalOpen,
+    handleOpenFiltersModal,
+    handleCloseFiltersModal,
+  } = useTransactionsController();
 
   const hasTransactions = transactions.length > 0;
 
   return (
     <div className="bg-gray-100 rounded-2xl w-full h-full p-10 flex flex-col">
-      <FiltersModal />
-
       {isInitialLoading && (
         <div className="w-full h-full flex items-center justify-center">
           <Spinner className="w-10 h-10"/>
@@ -31,11 +37,16 @@ export function Transactions() {
 
       {!isInitialLoading && (
         <>
+          <FiltersModal
+            open={isFiltersModalOpen}
+            onClose={handleCloseFiltersModal}
+          />
+
           <header>
             <div className="flex items-center justify-between">
               <TransactionTypeDropdown />
 
-              <button>
+              <button onClick={handleOpenFiltersModal}>
                 <FilterIcon />
               </button>
             </div>

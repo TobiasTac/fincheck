@@ -1,8 +1,13 @@
 import { Modal } from "../../../../components/Modal";
 
-export function FiltersModal() {
+interface FIltersModalProps {
+  open: boolean;
+  onClose(): void;
+}
+
+export function FiltersModal({ open, onClose }: FIltersModalProps) {
   return (
-    <Modal open title="filtros">
+    <Modal open={open} onClose={onClose} title="filtros">
       Filtros...
     </Modal>
   )
