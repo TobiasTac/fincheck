@@ -1,13 +1,35 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
-import { Button } from "../../../../components/Button";
-import { Modal } from "../../../../components/Modal";
+import { cn } from "../../../../../../app/utils/cn";
+import { Button } from "../../../../../components/Button";
+import { Modal } from "../../../../../components/Modal";
+import { useFiltersModal } from "./useFiltersModal";
 
 interface FIltersModalProps {
   open: boolean;
   onClose(): void;
 }
 
+const mockedAccounts = [
+  {
+    id: '123',
+    name: 'Nubank',
+  },
+  {
+    id: '456',
+    name: 'XP Investimentos',
+  },
+  {
+    id: '789',
+    name: 'Dinheiro',
+  },
+];
+
 export function FiltersModal({ open, onClose }: FIltersModalProps) {
+  const {
+    selectedBankAccountId,
+    handleSelectBankAccount,
+  } = useFiltersModal();
+
   return (
     <Modal open={open} onClose={onClose} title="Filtros">
       <div>
@@ -16,15 +38,18 @@ export function FiltersModal({ open, onClose }: FIltersModalProps) {
         </span>
 
         <div className="space-y-2 mt-2">
-          <button className="p-2 rounded-2xl !bg-gray-200 w-full text-left text-gray-800 hover:bg-gray-50 transition-colors">
-            Nubank
-          </button>
-          <button className="p-2 rounded-2xl w-full text-left text-gray-800 hover:bg-gray-50 transition-colors">
-            XP Investimentos
-          </button>
-          <button className="p-2 rounded-2xl w-full text-left text-gray-800 hover:bg-gray-50 transition-colors">
-            Dinheiro
-          </button>
+          {mockedAccounts.map(account => (
+            <button
+              key={account.id}
+              onClick={() => handleSelectBankAccount(account.id)}
+              className={cn(
+                'p-2 rounded-2xl w-full text-left text-gray-800 hover:bg-gray-50 transition-colors',
+                account.id === selectedBankAccountId && '!bg-gray-200',
+              )}
+            >
+              {account.name}
+            </button>
+          ))}
         </div>
       </div>
 
