@@ -1,14 +1,17 @@
 import * as Dialog from '@radix-ui/react-dialog';
 
+import { Cross2Icon } from '@radix-ui/react-icons';
+import type React from 'react';
 import { cn } from '../../app/utils/cn';
 
 interface ModalProps {
   open: boolean;
   children: React.ReactNode;
+  rightAction?: React.ReactNode;
   title: String;
 }
 
-export function Modal({ open, children, title }: ModalProps) {
+export function Modal({ open, children, rightAction, title }: ModalProps) {
   return (
     <Dialog.Root open={open}>
       <Dialog.Portal>
@@ -26,13 +29,19 @@ export function Modal({ open, children, title }: ModalProps) {
           )}
         >
           <header
-            className="h-12 flex items-center justify-between"
+            className="h-12 flex items-center justify-between text-gray-800"
           >
-            <button className='w-12 h-12'>X</button>
+            <button className='w-12 h-12'>
+              <Cross2Icon className='w-6 h-6' />
+            </button>
 
-            <span>{title}</span>
+            <span className='text-lg tracking-[-1px] font-bold'>
+              {title}
+            </span>
 
-            <div className='w-12 h-12'>R</div>
+            <div className='w-12 h-12 flex items-center justify-center'>
+              {rightAction}
+            </div>
           </header>
 
             <div>
