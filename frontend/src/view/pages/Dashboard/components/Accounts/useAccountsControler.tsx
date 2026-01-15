@@ -4,7 +4,11 @@ import { useDashboard } from "../DashboardContext/useDashboard";
 
 export function useAccountsControler() {
 	const windowWidth = useWindowWidth();
-  const { areValuesVisible, toogleValuesVisibility } = useDashboard();
+  const {
+    areValuesVisible,
+    toogleValuesVisibility,
+    openNewAccountModal,
+  } = useDashboard();
 
   const [sliderState, setSliderState] = useState({
 		isBeginning: true,
@@ -19,5 +23,6 @@ export function useAccountsControler() {
     toogleValuesVisibility,
     isLoading: false,
     accounts: [],
+    openNewAccountModal,
   }
 }
