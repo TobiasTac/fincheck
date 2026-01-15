@@ -4,7 +4,7 @@ import { Button } from "../../../../../components/Button";
 import { Modal } from "../../../../../components/Modal";
 import { useFiltersModal } from "./useFiltersModal";
 
-interface FIltersModalProps {
+interface FiltersModalProps {
   open: boolean;
   onClose(): void;
 }
@@ -24,7 +24,7 @@ const mockedAccounts = [
   },
 ];
 
-export function FiltersModal({ open, onClose }: FIltersModalProps) {
+export function FiltersModal({ open, onClose }: FiltersModalProps) {
   const {
     selectedBankAccountId,
     handleSelectBankAccount,
