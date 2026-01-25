@@ -5,9 +5,10 @@ import { DashboardProvider } from "./components/DashboardContext";
 import { Fab } from "./components/Fab";
 import { Transactions } from "./components/Transactions";
 import { NewAccountModal } from "./modals/NewAccountModal";
+import { NewTransactionModal } from "./modals/NewTransactionsModal";
 
 export function Dashboard() {
-   return (
+  return (
     <DashboardProvider>
       <div className="h-full w-full p-4 md:px-8 md:pb-8 md:pt-6 flex flex-col gap-4">
         <header className="h-12 flex items-center justify-between">
@@ -27,7 +28,8 @@ export function Dashboard() {
 
         <Fab />
         <NewAccountModal />
+        <NewTransactionModal />
       </div>
     </DashboardProvider>
-  )
+  );
 }
