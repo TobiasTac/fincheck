@@ -6,11 +6,17 @@ import { Select } from "../../../../components/Select";
 import { useNewTransactionModalController } from "./useNewTransactionModalController";
 
 export function NewTransactionModal() {
-  const { closeNewTransactionModal, isNewTransactionModalOpen } =
-    useNewTransactionModalController();
+  const {
+    closeNewTransactionModal,
+    isNewTransactionModalOpen,
+    newTransactionType,
+  } = useNewTransactionModalController();
+
+  const isExpense = newTransactionType === "EXPENSE";
+
   return (
     <Modal
-      title="Nova Conta"
+      title={isExpense ? "Nova Despesa" : "Nova Receita"}
       open={isNewTransactionModalOpen}
       onClose={closeNewTransactionModal}
     >
