@@ -1,4 +1,5 @@
-import { CrossCircledIcon } from "@radix-ui/react-icons";
+import { ChevronDownIcon, CrossCircledIcon } from "@radix-ui/react-icons";
+import { useState } from "react";
 import { cn } from "../../app/utils/cn";
 import { DropdownMenu } from "./DropdownMenu";
 import { ColorIcon } from "./icons/ColorIcon";
@@ -8,7 +9,12 @@ interface ColorsDropdownInputProps {
   className?: string;
 }
 
-const colors = [
+type Color = {
+  color: string;
+  bg: string;
+};
+
+const colors: Color[] = [
   { color: "#868E96", bg: "#F8F9FA" },
   { color: "#FA5252", bg: "#FFF5F5" },
   { color: "#E64980", bg: "#FFF0F6" },
@@ -29,6 +35,12 @@ export function ColorsDropdownInput({
   error,
   className,
 }: ColorsDropdownInputProps) {
+  const [selectedColor, setSelectedColor] = useState<null | Color>(null);
+
+  function handleSelect(color: Color) {
+    setSelectedColor(color);
+  }
+
   return (
     <div>
       <DropdownMenu.Root>
@@ -41,12 +53,24 @@ export function ColorsDropdownInput({
             )}
           >
             Cor
+            <div className="absolute right-3 top-1/2 -translate-y-1/2">
+              {!selectedColor && (
+                <ChevronDownIcon className="w-6 h-6 text-gray-800 " />
+              )}
+
+              {selectedColor && (
+                <ColorIcon color={selectedColor.color} bg={selectedColor.bg} />
+              )}
+            </div>
           </button>
         </DropdownMenu.Trigger>
 
         <DropdownMenu.Content className="grid grid-cols-4">
           {colors.map((color) => (
-            <DropdownMenu.Item key={color.color}>
+            <DropdownMenu.Item
+              key={color.color}
+              onSelect={() => handleSelect(color)}
+            >
               <ColorIcon color={color.color} bg={color.bg} />
             </DropdownMenu.Item>
           ))}
