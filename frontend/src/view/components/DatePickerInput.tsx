@@ -2,6 +2,7 @@ import { CrossCircledIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
 import { cn } from "../../app/utils/cn";
 import { formatDate } from "../../app/utils/formatDate";
+import { DatePicker } from "./DatePicker";
 import { Popover } from "./Popover";
 
 interface DatePickerInputProps {
@@ -31,7 +32,10 @@ export function DatePickerInput({ error, className }: DatePickerInputProps) {
           </button>
         </Popover.Trigger>
         <Popover.Content>
-          Qualquer coisa
+          <DatePicker
+            value={selectedDate}
+            onChange={date => setSelectedDate(date)}
+          />
         </Popover.Content>
       </Popover.Root>
 

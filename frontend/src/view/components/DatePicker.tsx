@@ -1,6 +1,7 @@
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { DayPicker } from 'react-day-picker';
+import { capitalizeFirstLetter } from '../../app/utils/capitalizeFirstLetter';
 
 interface DatePickerProps {
   value: Date;
@@ -27,7 +28,7 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
       formatters={{
         formatCaption: (date, options) => {
           return (
-            <span className="texrt-gray-900 tracking-[-0.408px] font-medium">
+            <span className="text-gray-900 tracking-[-0.408px] font-medium">
               {capitalizeFirstLetter(format(date, 'LLLL yyyy', options))}
             </span>
           );
