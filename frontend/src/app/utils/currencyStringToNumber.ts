@@ -1,5 +1,9 @@
-export function currencyStringToNumber(value: string) {
-  const sanitizedString = value.replace(/\./g, '').replace('/', '');
+export function currencyStringToNumber(value: string | number) {
+  if (typeof value === 'number') {
+    return value;
+  }
 
-  return Number(sanitizedString)
+  const sanitizedString = value.replace(/\./g, '').replace(',', '.');
+
+  return Number(sanitizedString);
 }
