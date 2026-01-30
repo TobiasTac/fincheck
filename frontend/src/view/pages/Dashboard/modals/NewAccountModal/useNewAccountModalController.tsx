@@ -1,6 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import z from "zod";
+import { bankAccountsService } from "../../../../../app/services/bankAccountsService";
 import { useDashboard } from "../../components/DashboardContext/useDashboard";
 
 const schema = z.object({
@@ -27,8 +29,17 @@ export function useNewAccountModalController() {
     resolver: zodResolver(schema),
   });
 
+  const { isPending, mutateAsync } = useMutation(bankAccountsService.create);
+
   const handleSubmit = hookFormSubmit(async (data) => {
-    console.log(data)
+    try {
+      await mutateAsync({
+        ...data,
+        initialBalance: 0,
+      })
+    } catch(error) {
+
+    }
   });
 
   return {
