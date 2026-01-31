@@ -39,6 +39,6 @@ export function useAccountsControler() {
     isLoading: isFetching,
     accounts: data,
     openNewAccountModal,
-    currentBalance,
+    currentBalance
   }
 }
