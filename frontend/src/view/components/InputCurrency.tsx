@@ -15,7 +15,9 @@ export function InputCurrency({ error, value, onChange }: InputCurrencyProps) {
         thousandSeparator="."
         decimalSeparator=','
         value={value}
-        onChange={event => onChange?.(event.target.value)}
+        onValueChange={(values) => {
+          onChange?.(values.value);
+        }}
         className={cn(
           'w-full text-gray-800 text-[32px] font-bold tracking-[-1px] outline-none',
           error && 'text-red-900'
