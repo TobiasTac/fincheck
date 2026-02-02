@@ -4,9 +4,11 @@ import { Modal } from "./Modal";
 
 interface ConfirmDeleteModalProps {
   onClose(): void;
+  title: string;
+  description?: string;
 }
 
-export function ConfirmDeleteModal({ onClose }: ConfirmDeleteModalProps) {
+export function ConfirmDeleteModal({ onClose, title, description }: ConfirmDeleteModalProps) {
   return (
     <Modal open onClose={onClose} title="Excluir">
       <div className="flex flex-col items-center text-center gap-6">
@@ -14,11 +16,13 @@ export function ConfirmDeleteModal({ onClose }: ConfirmDeleteModalProps) {
           <TrashIcon className="w-6 h-6 text-red-900"/>
         </div>
 
-        <p className="w-[180px] text-gray-800 tracking-[-0.5px] font-bold"> Tem certeza que deseja excluir essa conta? </p>
+        <p className="w-[180px] text-gray-800 tracking-[-0.5px] font-bold"> {title} </p>
 
-        <p className="text-gray-800 tracking-[-0.5px]">
-          Ao excluir a conta, também serão excluídos todos os registros de receita e despesas relacionados.
-        </p>
+        {description && (
+          <p className="text-gray-800 tracking-[-0.5px]">
+            {description}
+          </p>
+        )}
       </div>
 
       <div className="mt-10 space-y-4">
@@ -26,7 +30,7 @@ export function ConfirmDeleteModal({ onClose }: ConfirmDeleteModalProps) {
           Sim, desejo excluir
         </Button>
 
-        <Button className="w-full" variant="ghost">
+        <Button className="w-full" variant="ghost" onClick={onClose}>
           Cancelar
         </Button>
       </div>
