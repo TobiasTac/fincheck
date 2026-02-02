@@ -45,11 +45,19 @@ export function useEditAccountModalController() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const queryClient = useQueryClient();
-  const { isPending, mutateAsync } = useMutation(bankAccountsService.update);
+  const {
+    isPending,
+    mutateAsync: updateAccount
+  } = useMutation(bankAccountsService.update);
+
+  const {
+    isPending: isLoadingDelete,
+    mutateAsync: removeAccount,
+  } = useMutation(bankAccountsService.remove);
 
   const handleSubmit = hookFormSubmit(async (data) => {
     try {
-      await mutateAsync({
+      await updateAccount({
         ...data,
         initialBalance: currencyStringToNumber(data.initialBalance),
         id: accountBeingEdited!.id
@@ -71,6 +79,18 @@ export function useEditAccountModalController() {
     setIsDeleteModalOpen(false);
   }
 
+  async function handleDeleteAccount() {
+    try {
+      await removeAccount(accountBeingEdited!.id);
+
+      queryClient.invalidateQueries({ queryKey: ['bankAccounts'] });
+      toast.success('Conta deletada com sucesso!');
+      closeEditAccountModal();
+    } catch {
+      toast.error('Erro ao deletar a conta!')
+    }
+  }
+
   return {
     isEditAccountModalOpen,
     closeEditAccountModal,
@@ -82,5 +102,7 @@ export function useEditAccountModalController() {
     isDeleteModalOpen,
     handleOpenDeleteModal,
     handleCloseDeleteModal,
+    handleDeleteAccount,
+    isLoadingDelete,
   };
 }
