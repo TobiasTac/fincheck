@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import z from "zod";
 import { bankAccountsService } from "../../../../../app/services/bankAccountsService";
-import { currencyStringToNumber } from "../../../../../app/utils/currencyStringToNumber";
 import { useDashboard } from "../../components/DashboardContext/useDashboard";
 
 const schema = z.object({
@@ -59,7 +58,7 @@ export function useEditAccountModalController() {
     try {
       await updateAccount({
         ...data,
-        initialBalance: currencyStringToNumber(data.initialBalance),
+        initialBalance: Number(data.initialBalance),
         id: accountBeingEdited!.id
       });
 
