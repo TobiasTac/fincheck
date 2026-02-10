@@ -16,6 +16,7 @@ export function NewTransactionModal() {
     errors,
     handleSubmit,
     register,
+    accounts,
   } = useNewTransactionModalController();
 
   const isExpense = newTransactionType === "EXPENSE";
@@ -94,20 +95,10 @@ export function NewTransactionModal() {
                 onChange={onChange}
                 value={value}
                 error={errors.bankAccountId?.message}
-                options={[
-                  {
-                    value: "CHEKING",
-                    label: "Conta Corrente",
-                  },
-                  {
-                    value: "INVESTMENT",
-                    label: "Investimentos",
-                  },
-                  {
-                    value: "CASH",
-                    label: "Dinheiro",
-                  },
-                ]}
+                options={accounts.map(account => ({
+                  value: account.id,
+                  label: account.name,
+                }))}
               />
             )}
           />
