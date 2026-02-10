@@ -1,9 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import z from "zod";
 import { useBankAccounts } from "../../../../../app/hooks/useBankAccounts";
 import { useCategories } from "../../../../../app/hooks/useCategories";
+import { transactionsService } from "../../../../../app/services/transactionsService";
 import { useDashboard } from "../../components/DashboardContext/useDashboard";
 
 const schema = z.object({
@@ -28,16 +31,44 @@ export function useNewTransactionModalController() {
     handleSubmit: hookFormSubmit,
     formState: { errors },
     control,
+    reset,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
   })
 
-  const handleSubmit = hookFormSubmit(data => {
-    console.log(data);
-  });
-
+  const queryClient = useQueryClient();
   const { accounts } = useBankAccounts();
   const { categories: categoriesList } = useCategories();
+  const {
+    isPending,
+    mutateAsync,
+  } = useMutation(transactionsService.create);
+
+  const handleSubmit = hookFormSubmit(async data => {
+    try {
+      await mutateAsync({
+        ...data,
+        value: Number(data.value),
+        type: newTransactionType!,
+        date: data.date.toISOString(),
+      });
+
+      queryClient.invalidateQueries({ queryKey: ['transactions'] });
+      toast.success(
+        newTransactionType === 'EXPENSE'
+          ? 'Despesa cadastrada com sucesso!'
+          : 'Receita cadastrada com sucesso!'
+      );
+      closeNewTransactionModal();
+      reset();
+    } catch {
+      toast.error(
+        newTransactionType === 'EXPENSE'
+          ? 'Erro ao cadastrar despesa!'
+          : 'Erro ao cadastrar receita!'
+      )
+    }
+  });
 
   const categories = useMemo(() => {
     return categoriesList.filter(category => category.type === newTransactionType);
@@ -53,5 +84,6 @@ export function useNewTransactionModalController() {
     handleSubmit,
     accounts,
     categories,
+    isPending,
   };
 }
