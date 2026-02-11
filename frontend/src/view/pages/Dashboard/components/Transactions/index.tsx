@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { MONTHS } from "../../../../../app/config/constants";
 import { cn } from "../../../../../app/utils/cn";
 import { formatCurrency } from "../../../../../app/utils/formatCurrency";
+import { formatDate } from "../../../../../app/utils/formatDate";
 import emptyStateImage from '../../../../../assets/empty-state.svg';
 import { CategoryIcon } from "../../../../components/icons/categories/CategoryIcon";
 import { FilterIcon } from "../../../../components/icons/FilterIcon";
@@ -106,7 +107,7 @@ export function Transactions() {
                           {transaction.name}
                         </strong>
                         <span className="text-sm text-gray-600">
-                          {transaction.date}
+                          {formatDate(new Date(transaction.date))}
                         </span>
                       </div>
                     </div>
