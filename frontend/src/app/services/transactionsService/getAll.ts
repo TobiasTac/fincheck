@@ -11,7 +11,7 @@ type TransactionsFilters = {
 };
 
 export async function getAll(filters: TransactionsFilters) {
-  const { data } = await httpClient.get<TransactionsResponse>('/bank-accounts', {
+  const { data } = await httpClient.get<TransactionsResponse>('/transactions', {
     params: filters,
   });
 
