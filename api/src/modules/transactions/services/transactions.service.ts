@@ -51,10 +51,19 @@ export class TransactionsService {
         userId,
         bankAccountId: filters.bankAccountId,
         type: filters.type,
-         date: {
+        date: {
           gte: new Date(Date.UTC(filters.year, filters.month)),
           lt: new Date(Date.UTC(filters.year, filters.month + 1)),
-         },
+        },
+      },
+      include: {
+        category: {
+          select: {
+            id: true,
+            name: true,
+            icon: true,
+          },
+        },
       },
     });
   }
@@ -66,7 +75,7 @@ export class TransactionsService {
   ) {
     const { bankAccountId, categoryId, date, name, type, value } = updateTransactionDto;
 
-    await this.validateEntitiesOwnership ({
+    await this.validateEntitiesOwnership({
       userId,
       bankAccountId,
       categoryId,
@@ -110,11 +119,11 @@ export class TransactionsService {
 
     await Promise.all([
       transactionId &&
-        this.validateTransactionOwnershipService.validate(userId, transactionId),
+      this.validateTransactionOwnershipService.validate(userId, transactionId),
       bankAccountId &&
-        this.validateBankAccountOwnershipService.validate(userId,bankAccountId),
+      this.validateBankAccountOwnershipService.validate(userId, bankAccountId),
       categoryId &&
-        this.validateCategoryOwnershipService.validate(userId,categoryId),
+      this.validateCategoryOwnershipService.validate(userId, categoryId),
     ]);
   }
 }
