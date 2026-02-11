@@ -90,46 +90,39 @@ export function Transactions() {
             )}
 
             {(hasTransactions && !isLoading) && (
-              <>
-                <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
-                  <div className="flex-1 flex items-center gap-3">
-                    <CategoryIcon type="expense"/>
-
-                    <div>
-                      <strong className="font-bold tracking-[-0.5px] block">Almoço</strong>
-                      <span className="text-sm text-gray-600">23/12/2025</span>
-                    </div>
-                  </div>
-
-                  <span className={cn(
-                      'text-red-800 tarcking-[0.5px] font-medium',
-                      !areValuesVisible && 'blur-sm',
-                    )}
+              transactions.map(transaction => (
+                  <div
+                    key={transaction.id}
+                    className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4"
                   >
-                    -  {formatCurrency(200)}
-                  </span>
-                </div>
+                    <div className="flex-1 flex items-center gap-3">
+                      <CategoryIcon
+                        type={transaction.type === 'EXPENSE' ? 'expense' : 'income'}
+                        category={transaction.category?.icon}
+                      />
 
-                <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
-                  <div className="flex-1 flex items-center gap-3">
-                    <CategoryIcon type="income"/>
-
-                    <div>
-                      <strong className="font-bold tracking-[-0.5px] block">Salário</strong>
-                      <span className="text-sm text-gray-600">01/12/2025</span>
+                      <div>
+                        <strong className="font-bold tracking-[-0.5px] block">
+                          {transaction.name}
+                        </strong>
+                        <span className="text-sm text-gray-600">
+                          {transaction.date}
+                        </span>
+                      </div>
                     </div>
-                  </div>
 
-                  <span className={cn(
-                      'text-green-800 tarcking-[0.5px] font-medium',
-                      !areValuesVisible && 'blur-sm',
-                    )}
-                  >
-                    + {formatCurrency(2000)}
-                  </span>
-                </div>
-              </>
-            )}
+                    <span className={cn(
+                        'tarcking-[0.5px] font-medium',
+                        transaction.type === 'EXPENSE' ? 'text-red-800' : 'text-green-800',
+                        !areValuesVisible && 'blur-sm',
+                      )}
+                    >
+                      {transaction.type === 'EXPENSE' ? '-' : '+'}
+                      {formatCurrency(transaction.value)}
+                    </span>
+                  </div>
+              ))
+            )};
           </div>
         </>
       )}
