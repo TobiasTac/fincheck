@@ -24,6 +24,8 @@ export function Transactions() {
     isFiltersModalOpen,
     handleOpenFiltersModal,
     handleCloseFiltersModal,
+    handleChangeMonth,
+    filters,
   } = useTransactionsController();
 
   const hasTransactions = transactions.length > 0;
@@ -56,6 +58,10 @@ export function Transactions() {
               <Swiper
                 slidesPerView={3}
                 centeredSlides
+                initialSlide={filters.month}
+                onSlideChange={swiper => {
+                  handleChangeMonth(swiper.realIndex);
+                }}
               >
                 <SliderNavigation />
 
@@ -113,7 +119,7 @@ export function Transactions() {
                     </div>
 
                     <span className={cn(
-                        'tarcking-[0.5px] font-medium',
+                        'tracking-[0.5px] font-medium',
                         transaction.type === 'EXPENSE' ? 'text-red-800' : 'text-green-800',
                         !areValuesVisible && 'blur-sm',
                       )}
@@ -123,10 +129,10 @@ export function Transactions() {
                     </span>
                   </div>
               ))
-            )};
+            )}
           </div>
         </>
       )}
     </div>
-  )
+  );
 }
