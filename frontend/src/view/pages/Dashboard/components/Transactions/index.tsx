@@ -9,6 +9,7 @@ import emptyStateImage from '../../../../../assets/empty-state.svg';
 import { CategoryIcon } from "../../../../components/icons/categories/CategoryIcon";
 import { FilterIcon } from "../../../../components/icons/FilterIcon";
 import { Spinner } from "../../../../components/Spinner";
+import { EditTransactionModal } from "../../modals/EditTransactionsModal";
 import { FiltersModal } from "./FiltersModal";
 import { SliderNavigation } from "./SliderNavigation";
 import { SliderOption } from "./SliderOption";
@@ -102,7 +103,14 @@ export function Transactions() {
             )}
 
             {(hasTransactions && !isLoading) && (
-              transactions.map(transaction => (
+              <>
+                <EditTransactionModal
+                  open
+                  onClose={console.log}
+                  transactionType="EXPENSE"
+                />
+
+                {transactions.map(transaction => (
                   <div
                     key={transaction.id}
                     className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4"
@@ -123,8 +131,9 @@ export function Transactions() {
                       </div>
                     </div>
 
-                    <span className={cn(
-                        'tracking-[0.5px] font-medium',
+                    <span
+                      className={cn(
+                        'tracking-[-0.5px] font-medium',
                         transaction.type === 'EXPENSE' ? 'text-red-800' : 'text-green-800',
                         !areValuesVisible && 'blur-sm',
                       )}
@@ -133,7 +142,8 @@ export function Transactions() {
                       {formatCurrency(transaction.value)}
                     </span>
                   </div>
-              ))
+                ))}
+              </>
             )}
           </div>
         </>
