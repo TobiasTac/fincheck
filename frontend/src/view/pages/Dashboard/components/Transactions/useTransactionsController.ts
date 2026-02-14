@@ -55,12 +55,12 @@ export function useTransactionsController() {
     setIsFiltersModalOpen(false)
   }
 
-  function handleOpenEditTransactionModal(transaction: Transaction) {
+  function handleOpenEditModal(transaction: Transaction) {
     setIsEditModalOpen(true);
     setTransactionBeingEdit(transaction);
   }
 
-  function handleCloseEditTransactionModal() {
+  function handleCloseEditModal() {
     setIsEditModalOpen(false);
     setTransactionBeingEdit(null);
   }
@@ -78,7 +78,7 @@ export function useTransactionsController() {
     handleApplyFilters,
     isEditModalOpen,
     transactionBeingEdit,
-    handleOpenEditTransactionModal,
-    handleCloseEditTransactionModal,
+    handleOpenEditModal,
+    handleCloseEditModal,
   };
 }
