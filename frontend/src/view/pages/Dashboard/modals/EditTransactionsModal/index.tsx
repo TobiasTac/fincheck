@@ -7,7 +7,13 @@ import { Modal } from "../../../../components/Modal";
 import { Select } from "../../../../components/Select";
 import { useEditTransactionModalController } from "./useEditTransactionModalController";
 
-export function EditTransactionModal() {
+interface EditTransactionModalProps {
+  transactionType: 'INCOME' | 'EXPENSE';
+  open: boolean;
+  onClose(): void;
+}
+
+export function EditTransactionModal({ transactionType, open, onClose }: EditTransactionModalProps) {
   const {
     control,
     errors,
@@ -16,15 +22,15 @@ export function EditTransactionModal() {
     accounts,
     categories,
     isPending: isLoading,
-  } = useEditTransactionModalController();
+  } = useEditTransactionModalController(transactionType);
 
-  const isExpense = newTransactionType === "EXPENSE";
+  const isExpense = transactionType === "EXPENSE";
 
   return (
     <Modal
-      title={isExpense ? "Nova Despesa" : "Nova Receita"}
-      open={isNewTransactionModalOpen}
-      onClose={closeNewTransactionModal}
+      title={isExpense ? "Editar Despesa" : "Editar Receita"}
+      open={open}
+      onClose={onClose}
     >
       <form onSubmit={handleSubmit}>
         <div>
@@ -107,7 +113,7 @@ export function EditTransactionModal() {
         </div>
 
         <Button type="submit" className="w-full mt-6" isLoading={isLoading}>
-          Criar
+          Salvar
         </Button>
       </form>
     </Modal>

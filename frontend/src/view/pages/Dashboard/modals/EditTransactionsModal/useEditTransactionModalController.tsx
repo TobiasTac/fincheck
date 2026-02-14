@@ -15,7 +15,9 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-export function useEditTransactionModalController() {
+export function useEditTransactionModalController(
+  transactionType: 'INCOME' | 'EXPENSE',
+) {
   const {
     register,
     handleSubmit: hookFormSubmit,
@@ -33,8 +35,8 @@ export function useEditTransactionModalController() {
   });
 
   const categories = useMemo(() => {
-    return categoriesList.filter(category => category.type === 'EXPENSE');
-  }, [categoriesList]);
+    return categoriesList.filter(category => category.type === transactionType);
+  }, [categoriesList, transactionType]);
 
   return {
     register,
