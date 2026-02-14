@@ -28,6 +28,9 @@ export function Transactions() {
     handleChangeFilters,
     filters,
     handleApplyFilters,
+    handleCloseEditModal,
+    handleOpenEditModal,
+    isEditModalOpen,
   } = useTransactionsController();
 
   const hasTransactions = transactions.length > 0;
@@ -105,15 +108,17 @@ export function Transactions() {
             {(hasTransactions && !isLoading) && (
               <>
                 <EditTransactionModal
-                  open
-                  onClose={console.log}
-                  transactionType="EXPENSE"
+                  open={isEditModalOpen}
+                  onClose={handleCloseEditModal}
+                  transactionType="INCOME"
                 />
 
                 {transactions.map(transaction => (
                   <div
                     key={transaction.id}
                     className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4"
+                    role="button"
+                    onClick={() => handleOpenEditModal(transaction)}
                   >
                     <div className="flex-1 flex items-center gap-3">
                       <CategoryIcon
