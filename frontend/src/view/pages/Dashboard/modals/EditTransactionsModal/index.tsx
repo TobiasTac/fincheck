@@ -1,4 +1,5 @@
 import { Controller } from "react-hook-form";
+import type { Transaction } from "../../../../../app/entities/Transaction";
 import { Button } from "../../../../components/Button";
 import { DatePickerInput } from "../../../../components/DatePickerInput";
 import { Input } from "../../../../components/Input";
@@ -8,12 +9,12 @@ import { Select } from "../../../../components/Select";
 import { useEditTransactionModalController } from "./useEditTransactionModalController";
 
 interface EditTransactionModalProps {
-  transactionType: 'INCOME' | 'EXPENSE';
   open: boolean;
   onClose(): void;
+  transaction: Transaction | null;
 }
 
-export function EditTransactionModal({ transactionType, open, onClose }: EditTransactionModalProps) {
+export function EditTransactionModal({ transaction, open, onClose }: EditTransactionModalProps) {
   const {
     control,
     errors,
@@ -22,9 +23,9 @@ export function EditTransactionModal({ transactionType, open, onClose }: EditTra
     accounts,
     categories,
     isPending: isLoading,
-  } = useEditTransactionModalController(transactionType);
+  } = useEditTransactionModalController(transaction);
 
-  const isExpense = transactionType === "EXPENSE";
+  const isExpense = transaction?.type === "EXPENSE";
 
   return (
     <Modal

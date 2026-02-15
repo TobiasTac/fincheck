@@ -31,6 +31,7 @@ export function Transactions() {
     handleCloseEditModal,
     handleOpenEditModal,
     isEditModalOpen,
+    transactionBeingEdit,
   } = useTransactionsController();
 
   const hasTransactions = transactions.length > 0;
@@ -107,11 +108,13 @@ export function Transactions() {
 
             {(hasTransactions && !isLoading) && (
               <>
-                <EditTransactionModal
-                  open={isEditModalOpen}
-                  onClose={handleCloseEditModal}
-                  transactionType="INCOME"
-                />
+                {transactionBeingEdit && (
+                  <EditTransactionModal
+                    open={isEditModalOpen}
+                    onClose={handleCloseEditModal}
+                    transaction={transactionBeingEdit}
+                  />
+                )}
 
                 {transactions.map(transaction => (
                   <div

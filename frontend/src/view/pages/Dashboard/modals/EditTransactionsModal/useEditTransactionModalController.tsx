@@ -2,11 +2,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
+import type { Transaction } from "../../../../../app/entities/Transaction";
 import { useBankAccounts } from "../../../../../app/hooks/useBankAccounts";
 import { useCategories } from "../../../../../app/hooks/useCategories";
 
 const schema = z.object({
-  value: z.string().nonempty('Informe o valor'),
+  value: z.union([
+    z.string().nonempty('Informe o valor'),
+    z.number(),
+  ]),
   name: z.string().nonempty('Informe o nome'),
   categoryId: z.string().nonempty('Informe a categoria'),
   bankAccountId: z.string().nonempty('Informe a conta'),
@@ -16,7 +20,7 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export function useEditTransactionModalController(
-  transactionType: 'INCOME' | 'EXPENSE',
+  transaction: Transaction | null
 ) {
   const {
     register,
@@ -25,7 +29,14 @@ export function useEditTransactionModalController(
     control,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
-  })
+    defaultValues: {
+      bankAccountId: transaction?.bankAccountId,
+      categoryId: transaction?.categoryId,
+      name: transaction?.name,
+      value: transaction?.value,
+      date: transaction ? new Date(transaction.date) : new Date(),
+    }
+  });
 
   const { accounts } = useBankAccounts();
   const { categories: categoriesList } = useCategories();
@@ -35,8 +46,8 @@ export function useEditTransactionModalController(
   });
 
   const categories = useMemo(() => {
-    return categoriesList.filter(category => category.type === transactionType);
-  }, [categoriesList, transactionType]);
+    return categoriesList.filter(category => category.type === transaction?.type);
+  }, [categoriesList, transaction]);
 
   return {
     register,
