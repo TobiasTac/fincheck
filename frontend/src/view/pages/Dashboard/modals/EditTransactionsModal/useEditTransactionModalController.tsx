@@ -1,10 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import z from "zod";
 import type { Transaction } from "../../../../../app/entities/Transaction";
 import { useBankAccounts } from "../../../../../app/hooks/useBankAccounts";
 import { useCategories } from "../../../../../app/hooks/useCategories";
+import { transactionsService } from "../../../../../app/services/transactionsService";
 
 const schema = z.object({
   value: z.union([
@@ -20,7 +23,8 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export function useEditTransactionModalController(
-  transaction: Transaction | null
+  transaction: Transaction | null,
+  onClose: () => void,
 ) {
   const {
     register,
@@ -40,9 +44,33 @@ export function useEditTransactionModalController(
 
   const { accounts } = useBankAccounts();
   const { categories: categoriesList } = useCategories();
+  const queryClient = useQueryClient();
+  const { isPending, mutateAsync } = useMutation(transactionsService.update);
 
   const handleSubmit = hookFormSubmit(async data => {
-    console.log(data)
+    try {
+      await mutateAsync({
+        ...data,
+        id: transaction!.id,
+        type: transaction!.type,
+        value: Number(data.value),
+        date: data.date.toISOString(),
+      });
+
+      queryClient.invalidateQueries({ queryKey: ['transactions'] });
+      toast.success(
+        transaction!.type === 'EXPENSE'
+          ? 'Despesa editada com sucesso!'
+          : 'Receita editada com sucesso!'
+      );
+      onClose();
+    } catch {
+      toast.error(
+        transaction!.type  === 'EXPENSE'
+          ? 'Erro ao salvar despesa!'
+          : 'Erro ao salvar receita!'
+      )
+    }
   });
 
   const categories = useMemo(() => {
@@ -56,6 +84,6 @@ export function useEditTransactionModalController(
     handleSubmit,
     accounts,
     categories,
-    isPending: false,
+    isPending,
   };
 }

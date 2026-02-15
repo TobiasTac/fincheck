@@ -23,7 +23,7 @@ export function EditTransactionModal({ transaction, open, onClose }: EditTransac
     accounts,
     categories,
     isPending: isLoading,
-  } = useEditTransactionModalController(transaction);
+  } = useEditTransactionModalController(transaction, onClose);
 
   const isExpense = transaction?.type === "EXPENSE";
 
