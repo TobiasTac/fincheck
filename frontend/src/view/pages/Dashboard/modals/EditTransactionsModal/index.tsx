@@ -1,6 +1,7 @@
 import { Controller } from "react-hook-form";
 import type { Transaction } from "../../../../../app/entities/Transaction";
 import { Button } from "../../../../components/Button";
+import { ConfirmDeleteModal } from "../../../../components/ConfirmDeleteModal";
 import { DatePickerInput } from "../../../../components/DatePickerInput";
 import { Input } from "../../../../components/Input";
 import { InputCurrency } from "../../../../components/InputCurrency";
@@ -23,9 +24,24 @@ export function EditTransactionModal({ transaction, open, onClose }: EditTransac
     accounts,
     categories,
     isPending: isLoading,
+    isDeleteModalOpen,
+    isLoadingDelete,
+    handleDeleteTransaction,
+    handleCloseDeleteModal,
   } = useEditTransactionModalController(transaction, onClose);
 
   const isExpense = transaction?.type === "EXPENSE";
+
+  if (isDeleteModalOpen) {
+    return (
+      <ConfirmDeleteModal
+        isLoading={isLoadingDelete}
+        onConfirm={handleDeleteTransaction}
+        onClose={handleCloseDeleteModal}
+        title={`Tem certeza que deseja excluir essa ${isExpense ? 'despesa' : 'receita'}?`}
+      />
+    )
+  }
 
   return (
     <Modal

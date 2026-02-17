@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import z from "zod";
@@ -47,6 +47,8 @@ export function useEditTransactionModalController(
   const queryClient = useQueryClient();
   const { isPending, mutateAsync } = useMutation(transactionsService.update);
 
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
   const handleSubmit = hookFormSubmit(async data => {
     try {
       await mutateAsync({
@@ -77,6 +79,14 @@ export function useEditTransactionModalController(
     return categoriesList.filter(category => category.type === transaction?.type);
   }, [categoriesList, transaction]);
 
+  function handleDeleteTransaction() {
+
+  }
+
+  function handleCloseDeleteModal() {
+    setIsDeleteModalOpen(false);
+  }
+
   return {
     register,
     errors,
@@ -85,5 +95,9 @@ export function useEditTransactionModalController(
     accounts,
     categories,
     isPending,
+    isDeleteModalOpen,
+    isLoadingDelete: false,
+    handleDeleteTransaction,
+    handleCloseDeleteModal,
   };
 }
