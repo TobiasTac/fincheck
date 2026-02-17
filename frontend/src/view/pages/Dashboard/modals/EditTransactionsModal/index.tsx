@@ -3,6 +3,7 @@ import type { Transaction } from "../../../../../app/entities/Transaction";
 import { Button } from "../../../../components/Button";
 import { ConfirmDeleteModal } from "../../../../components/ConfirmDeleteModal";
 import { DatePickerInput } from "../../../../components/DatePickerInput";
+import { TrashIcon } from "../../../../components/icons/TrashIcon";
 import { Input } from "../../../../components/Input";
 import { InputCurrency } from "../../../../components/InputCurrency";
 import { Modal } from "../../../../components/Modal";
@@ -27,6 +28,7 @@ export function EditTransactionModal({ transaction, open, onClose }: EditTransac
     isDeleteModalOpen,
     isLoadingDelete,
     handleDeleteTransaction,
+    handleOpenDeleteModal,
     handleCloseDeleteModal,
   } = useEditTransactionModalController(transaction, onClose);
 
@@ -40,7 +42,7 @@ export function EditTransactionModal({ transaction, open, onClose }: EditTransac
         onClose={handleCloseDeleteModal}
         title={`Tem certeza que deseja excluir essa ${isExpense ? 'despesa' : 'receita'}?`}
       />
-    )
+    );
   }
 
   return (
@@ -48,6 +50,11 @@ export function EditTransactionModal({ transaction, open, onClose }: EditTransac
       title={isExpense ? "Editar Despesa" : "Editar Receita"}
       open={open}
       onClose={onClose}
+      rightAction={(
+        <button onClick={handleOpenDeleteModal}>
+          <TrashIcon className="w-6 h-6 text-red-900" />
+        </button>
+      )}
     >
       <form onSubmit={handleSubmit}>
         <div>

@@ -83,6 +83,9 @@ export function useEditTransactionModalController(
 
   }
 
+  function handleOpenDeleteModal() {
+    setIsDeleteModalOpen(true);
+  }
   function handleCloseDeleteModal() {
     setIsDeleteModalOpen(false);
   }
@@ -98,6 +101,7 @@ export function useEditTransactionModalController(
     isDeleteModalOpen,
     isLoadingDelete: false,
     handleDeleteTransaction,
+    handleOpenDeleteModal,
     handleCloseDeleteModal,
   };
 }
