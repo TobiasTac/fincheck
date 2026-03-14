@@ -24,7 +24,7 @@ export function AuthLayout() {
           <Logo className="text-teal-900 h-8" />
 
           <p className="text-gray-700 font-medium text-xl mt-6">
-            Gerencie suas finanças pessoais de uma forma simples com o fincheck, e o melhor, totalmente de graça!
+            Gerencie suas finanças pessoais de uma forma simples com o monify: seu app de finanças!
           </p>
         </div>
       </div>
