@@ -1,12 +1,14 @@
-# 💹 Monify
+<p align="center">
+  <img src="./monify-logo.svg" alt="Monify Logo" width="120px">
+</p>
 
-**Monify** is a comprehensive personal finance application designed to help users monitor their financial health easily and efficiently. By providing a clear overview of income and expenses, Monify empowers users to take control of their financial future.
+<p align="center">
+  <strong>Monitor your personal finances easily and efficiently.</strong>
+</p>
 
-## 🎥 Preview
-
-*Check out our official motion flyer for a quick look at the interface and features:*
-
-> [Link to your Motion Flyer/Video here]
+<p align="center">
+  <img src="./monify.gif" alt="Monify Demo" width="100%">
+</p>
 
 ---
 
@@ -76,10 +78,3 @@ yarn dev
 ```
 
 ---
-
-## ✨ Features
-
-* **Dynamic Dashboard:** Real-time visualization of your financial balance.
-* **Transaction History:** Detailed logs of all incomes and expenses.
-* **PostgreSQL Integration:** Robust and ACID-compliant data storage.
-* **Responsive Design:** Fully optimized for mobile and desktop views.
